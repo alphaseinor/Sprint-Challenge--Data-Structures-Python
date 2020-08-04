@@ -13,14 +13,12 @@ f.close()
 duplicates = []  # Return the list of duplicates in this data structure
 
 # Replace the nested for loops below with your improvements
-for name_1 in names_1:
-    for name_2 in names_2:
-        if name_1 == name_2:
-            duplicates.append(name_1)
+# for name_1 in names_1:
+#     for name_2 in names_2:
+#         if name_1 == name_2:
+#             duplicates.append(name_1)
 
-end_time = time.time()
-print (f"{len(duplicates)} duplicates:\n\n{', '.join(duplicates)}\n\n")
-print (f"runtime: {end_time - start_time} seconds")
+
 
 # ---------- Stretch Goal -----------
 # Python has built-in tools that allow for a very efficient approach to this problem
@@ -37,12 +35,12 @@ class Node:
     def insert(self, value):
         if value < self.value:
             if self.left is None:
-                self.left = BSTNode(value)
+                self.left = Node(value)
             else:
                 self.left.insert(value)
         else:
             if self.right is None:
-                self.right = BSTNode(value)
+                self.right = Node(value)
             else:
                 self.right.insert(value)
 
@@ -59,3 +57,17 @@ class Node:
                 return False
             else:
                 return self.right.contains(target)
+
+# new binary search tree, needed something to start [] just errors out, this will put in an extra duplicate name at root, but doesn't affect the result
+bst = Node(names_1[0])
+#insert all names
+for name in names_1:
+    bst.insert(name)
+#compare
+for name in names_2:
+    if bst.contains(name):
+        duplicates.append(name)
+
+end_time = time.time()
+print (f"{len(duplicates)} duplicates:\n\n{', '.join(duplicates)}\n\n")
+print (f"runtime: {end_time - start_time} seconds")
